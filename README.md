@@ -17,7 +17,7 @@
 
 #### npm
 ```bash
-npm install --save react-chat-widget
+npm install --save unidatalab-react-chat-widget
 ```
 
 #### yarn
