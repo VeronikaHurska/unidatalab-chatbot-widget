@@ -3,6 +3,9 @@ import { Component } from 'react';
 import { Widget, addResponseMessage, setQuickButtons, toggleMsgLoader, addLinkSnippet } from '../index';
 import { addUserMessage } from '..';
 
+const avatar = require('../assets/avatar.svg') as string;
+const titleAvatar = require('../assets/title_avatar.svg') as string
+
 export default class App extends Component {
   componentDidMount() {
     addResponseMessage('Welcome to this awesome chat!');
@@ -35,18 +38,20 @@ export default class App extends Component {
     }
     return true;
   }
-
+   
   render() {
     return (
       <Widget
-        title="Bienvenido"
-        subtitle="Asistente virtual"
-        senderPlaceHolder="Escribe aquí ..."
+        title="StudyMate"
+        subtitle=""
+        senderPlaceHolder="Type..."
         handleNewUserMessage={this.handleNewUserMessage}
         handleQuickButtonClicked={this.handleQuickButtonClicked}
         imagePreview
         handleSubmit={this.handleSubmit}
         emojis
+        profileAvatar={avatar}
+        titleAvatar={titleAvatar}
       />
     );
   }
