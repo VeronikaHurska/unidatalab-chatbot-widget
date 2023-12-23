@@ -15,3 +15,5 @@ webpack.config*
 
 package-lock.json
 yarn.lock
+
+!/lib/
