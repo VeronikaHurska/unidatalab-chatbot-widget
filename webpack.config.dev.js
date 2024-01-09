@@ -1,23 +1,22 @@
-'use strict'
+'use strict';
 
-const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 
 module.exports = {
+  mode: 'production',
   entry: {
     main: path.resolve(__dirname, 'dev/main.tsx'),
     vendor: ['react', 'react-dom']
   },
-  target: 'web',
-  mode: 'development',
-  devServer: {
-    contentBase: path.resolve(__dirname, 'dist'),
-    compress: false,
-    host: '0.0.0.0',
-    port: 3000,
-    hot: true
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'js/[name].[contenthash].js',
+    publicPath: '/'
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js']
@@ -25,61 +24,73 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.(ttf|eot|woff|woff2)$/,
+        type: 'asset/resource',
+        generator: {
+          filename: 'fonts/[name][ext][query]'
+        }
+      },
+      {
         test: /\.ts(x?)$/,
         exclude: /node_modules/,
         use: ['babel-loader', 'ts-loader']
       },
       {
-        enforce: "pre",
         test: /\.js$/,
-        loader: "source-map-loader"
-      },
-      {
-        test: /\.js$/,
-        loader: 'babel-loader',
+        use: ['babel-loader'],
         exclude: /node_modules/
       },
       {
         test: /\.scss$/,
-        exclude: /node_modules/,
         use: [
-          'style-loader',
+          MiniCssExtractPlugin.loader,
           'css-loader',
           {
             loader: 'postcss-loader',
             options: {
               postcssOptions: {
-                plugins: ['postcss-preset-env']
+                plugins: [autoprefixer()]
               }
             }
           },
-          {
-            loader: 'sass-loader',
-            options: {
-              implementation: require('node-sass'),
-              sassOptions: {
-                includePaths: [path.resolve(__dirname, 'src/scss/')]
-              }
-            }
-          }
+          'sass-loader'
         ]
       },
       {
         test: /\.(jpg|png|gif|svg)$/,
-        type: 'asset/inline'
+        type: 'asset/resource',
+        generator: {
+          filename: 'images/[name][ext][query]'
+        }
       }
     ]
   },
-  devtool: 'inline-source-map',
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
+    new CleanWebpackPlugin(),
+    new MiniCssExtractPlugin({
+      filename: 'css/[name].[contenthash].css'
+    }),
     new HtmlWebpackPlugin({
       template: './dev/index.html'
     }),
     new webpack.ProvidePlugin({
-      'React': 'react'
+      React: 'react'
     })
   ],
+  optimization: {
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          compress: {
+            drop_console: true
+          }
+        }
+      })
+    ],
+    splitChunks: {
+      chunks: 'all'
+    }
+  },
   performance: {
     hints: false
   }
