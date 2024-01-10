@@ -122,7 +122,7 @@ function Launcher({ toggle, chatId, openImg, closeImg, openLabel, closeLabel, sh
     if (!showChat) {
       toggle();
     }
-  }, [toggle]);
+  }, []);
 
   const toggleChat = () => {
     toggle();

@@ -4,10 +4,12 @@
 .rcw-messages-container {
   background-color: $white;
   height: 50vh;
-  max-height: 300px;
   overflow-y: scroll;
   padding-top: 10px;
   -webkit-overflow-scrolling: touch;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .rcw-full-screen {

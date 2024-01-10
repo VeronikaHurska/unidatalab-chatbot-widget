@@ -5,8 +5,14 @@
   flex-direction: column;
   align-items: center;
   background-color: #FFF;
+  transition: visibility 0.3s, height 0.3s;
+  height: auto; // Adjust this value to the height of your buttons
 }
-
+.ready-questions.hidden {
+  visibility: hidden;
+  height: 0; // When hidden, the height becomes 0
+  overflow: hidden; // Prevents content from spilling out
+}
 .question {
   width: 342.853px;
   height: 38.556px;
