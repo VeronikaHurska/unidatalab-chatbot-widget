@@ -1,3 +1,4 @@
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import cn from "classnames";
 
@@ -109,24 +110,25 @@ function Image(props) {
   );
 }
 
-function Launcher({
-  toggle,
-  chatId,
-  openImg,
-  closeImg,
-  openLabel,
-  closeLabel,
-  showBadge,
-}: Props) {
+function Launcher({ toggle, chatId, openImg, closeImg, openLabel, closeLabel, showBadge }: Props) {
   const dispatch = useDispatch();
   const { showChat, badgeCount } = useSelector((state: GlobalState) => ({
     showChat: state.behavior.showChat,
     badgeCount: state.messages.badgeCount,
   }));
 
+  // Open chat automatically when component mounts
+  useEffect(() => {
+    if (!showChat) {
+      toggle();
+    }
+  }, [toggle]);
+
   const toggleChat = () => {
     toggle();
-    if (!showChat) dispatch(setBadgeCount(0));
+    if (!showChat) {
+      dispatch(setBadgeCount(0));
+    }
   };
 
   return (

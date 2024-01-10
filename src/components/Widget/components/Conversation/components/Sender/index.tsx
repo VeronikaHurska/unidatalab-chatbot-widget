@@ -156,21 +156,39 @@ function Sender(
   const handlePredefinedQuestion = (question) => {
     sendMessage(question);
   };
-  
 
   return (
-    <div ref={refContainer} >
-     <div className="ready-questions">
-      <button onClick={() => handlePredefinedQuestion("What was the original objective of the transformer architecture designers?")} className="question">
-        What was the original objective of ...
-      </button>
-      <button onClick={() => handlePredefinedQuestion("How is the text that you pass to an LLM named?")} className="question">
-        How is the text that you pass to ...
-      </button>
-      <button onClick={() => handlePredefinedQuestion("What is the strategy to get the model to produce better outcomes?")} className="question">
-        What is the strategy to get the model ...
-      </button>
-    </div>
+    <div ref={refContainer}>
+      <div className="ready-questions">
+        <button
+          onClick={() =>
+            handlePredefinedQuestion("What will I learn in this course?")
+          }
+          className="question"
+        >
+          What will I learn in this course?
+        </button>
+        <button
+          onClick={() =>
+            handlePredefinedQuestion(
+              "Can I get certificate after finishing course?"
+            )
+          }
+          className="question"
+        >
+          Is there a certificate after the course?
+        </button>
+        <button
+          onClick={() =>
+            handlePredefinedQuestion(
+              "What are the prerequisites for this course?"
+            )
+          }
+          className="question"
+        >
+          What are the course prerequisites?
+        </button>
+      </div>
 
       <div className="rcw-sender">
         <button

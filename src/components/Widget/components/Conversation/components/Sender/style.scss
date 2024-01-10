@@ -3,7 +3,8 @@
 .ready-questions {
   display: flex;
   flex-direction: column;
-  align-items: center
+  align-items: center;
+  background-color: #FFF;
 }
 
 .question {
@@ -17,9 +18,9 @@
   font-weight: 400;
   line-height: normal;
   border-radius: 12px;
-background: #1A92D6;
-border: none;
-margin-bottom: 7px;
+  background: #1A92D6;
+  border: none;
+  margin-bottom: 7px;
 
 }
 

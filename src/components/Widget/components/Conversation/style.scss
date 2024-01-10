@@ -46,13 +46,13 @@
 
 .rcw-conversation-container {
   border-radius: 10px;
-  box-shadow: 0px 2px 3px 1px black;
+  box-shadow: 0px 2px 3px 1px gray;
   min-width: 476px;
-  // height: 100%;
   max-width: 90vw;
   position: fixed;
   bottom: 30%;
   right: 85px;
+  max-height: 69vh;
 
   &.active {
     opacity: 1;

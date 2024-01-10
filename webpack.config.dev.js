@@ -1,11 +1,15 @@
 'use strict';
 
+const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const autoprefixer = require('autoprefixer');
+
+
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const autoprefixer = require('autoprefixer');
+
 
 module.exports = {
   mode: 'production',
@@ -42,18 +46,27 @@ module.exports = {
       },
       {
         test: /\.scss$/,
+        exclude: /node_modules/,
         use: [
-          MiniCssExtractPlugin.loader,
+          'style-loader',
           'css-loader',
           {
             loader: 'postcss-loader',
             options: {
               postcssOptions: {
-                plugins: [autoprefixer()]
+                plugins: ['postcss-preset-env']
               }
             }
           },
-          'sass-loader'
+          {
+            loader: 'sass-loader',
+            options: {
+              implementation: require('node-sass'),
+              sassOptions: {
+                includePaths: [path.resolve(__dirname, 'src/scss/')]
+              }
+            }
+          }
         ]
       },
       {
